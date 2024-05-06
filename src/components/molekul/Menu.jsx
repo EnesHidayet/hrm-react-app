@@ -1,12 +1,19 @@
-import React from "react";
 import { Link } from "react-router-dom"; // Import Link for routing
 
-function Menu (){
-
+function Menu() {
   return (
-    <div style={{backgroundColor: 'white-smoke', 
-    borderRadius: 40, outline:0, opacity:1, 
-    fontWeight:500, fontSize: 13, letterSpacing: 2, }} className="sidebar">
+    <div
+      style={{
+        backgroundColor: "white-smoke",
+        borderRadius: 40,
+        outline: 0,
+        opacity: 1,
+        fontWeight: 500,
+        fontSize: 13,
+        letterSpacing: 2,
+      }}
+      className="sidebar"
+    >
       <ul>
         <br></br>
         <li>
@@ -28,10 +35,8 @@ function Menu (){
           <Link to="/departments">Departmanlar</Link>
         </li>
       </ul>
-
     </div>
   );
-
-};
+}
 
 export default Menu;
