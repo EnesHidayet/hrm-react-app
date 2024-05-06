@@ -2,18 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios"; // Import axios for HTTP requests
 
-function PersonelListesi() {
+function InaktifPersonelListesi() {
   const [personnelData, setPersonnelData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8081/hrm/user/find-all-users");
+        const response = await axios.get("http://localhost:8081/hrm/user/find-inactive-users");
         setPersonnelData(response.data); // Update state with fetched data
         console.log(response.data)
       } catch (error) {
-        console.error("Error fetching personnel data:", error);        
-        // Handle errors appropriately (e.g., display error message to user)
+        console.error("Error fetching personnel data:", error);
       }
     };
 
@@ -69,4 +68,4 @@ function PersonelListesi() {
   );
 }
 
-export default PersonelListesi;
+export default InaktifPersonelListesi;
