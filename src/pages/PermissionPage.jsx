@@ -13,7 +13,9 @@ export default function PermissionPage() {
 
   function HandleSearch() {
 
-    const id = axios.get('http://localhost:8081/findByFullName')
+    const fullName = firstName + lastName;
+
+    const id = axios.get('http://localhost:8081/findByFullName/' + {fullName})
     if (Number(id)) {
       setId(id);
     } 
