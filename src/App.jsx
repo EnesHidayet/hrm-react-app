@@ -8,6 +8,8 @@ import User from './pages/User';
 import PersonelYonetim from './pages/PersonelYonetim';
 import AddNewEmployee from './pages/AddNewEmployee';
 import DefinePermission from './pages/DefinePermission';
+import ForgotPassword from './pages/ForgotPassword';
+import UpdatePassword from './pages/UpdatePassword';
 
 function App() {
   const [token, setToken] = useState(""); // Use state to manage token
@@ -25,6 +27,8 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login setToken={setToken} />} /> 
         <Route path='/register' element={<Register />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/update-password' element={<UpdatePassword />} />
         <Route
           path="/user"
           element={token ? <User /> : <Navigate to="/login" replace />}
