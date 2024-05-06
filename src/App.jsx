@@ -7,8 +7,7 @@ import Home from './pages/Home';
 import User from './pages/User';
 import PersonelYonetim from './pages/PersonelYonetim';
 import AddNewEmployee from './pages/AddNewEmployee';
-import PermissionPage from './pages/PermissionPage';
-import OtherPermissionData from './components/molekul/OtherPermissionData';
+import DefinePermission from './pages/DefinePermission';
 
 function App() {
   const [token, setToken] = useState(""); // Use state to manage token
@@ -32,8 +31,7 @@ function App() {
         />
         <Route path='/personel-yonetim' element={<PersonelYonetim />} />
         <Route path='/add-new-employee' element={<AddNewEmployee />} />
-        <Route path='/permission-page' element={<PermissionPage />} />
-        <Route path='/permission-page' element={<OtherPermissionData />} />
+        <Route path='define-permission' element={<DefinePermission />} />
       </Routes>
     </BrowserRouter>
   );
