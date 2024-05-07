@@ -8,6 +8,7 @@ import User from './pages/User';
 import PersonelYonetim from './pages/PersonelYonetim';
 import AddNewEmployee from './pages/AddNewEmployee';
 import DefinePermission from './pages/DefinePermission';
+import AcceptPermissions from './pages/AcceptPermissions';
 
 function App() {
   const [token, setToken] = useState(""); // Use state to manage token
@@ -31,7 +32,8 @@ function App() {
         />
         <Route path='/personel-yonetim' element={<PersonelYonetim />} />
         <Route path='/add-new-employee' element={<AddNewEmployee />} />
-        <Route path='define-permission' element={<DefinePermission />} />
+        <Route path='/define-permission' element={<DefinePermission />} />
+        <Route path='/accept-permissions' element={<AcceptPermissions />} />
       </Routes>
     </BrowserRouter>
   );
