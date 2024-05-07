@@ -1,4 +1,6 @@
 import React,{useState} from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function Register(){
 
@@ -7,12 +9,37 @@ function Register(){
     const [title,setTitle] = useState('');     
     const [phoneNumber,setPhoneNumber] = useState('');     
     const [password,setPassword] = useState('');
+    const navigate = useNavigate();
+
+    async function handleSubmit(event) {
+        event.preventDefault();
+    
+        try {
+          const response = await axios.post('http://localhost:8080/hrm/auth/register', {
+            fullName,
+            email,
+            title,
+            phoneNumber,
+            password,
+          });
+    
+          if (response.status === 200) {
+            console.log('Register successful:', response.data);
+            navigate('/login'); // Redirect to user page
+          } else {
+            console.error('Register failed:', response.data);
+          }
+        } catch (error) {
+          console.error('Register error:', error);
+          // Handle errors appropriately
+        }
+      }
 
     return(
         <div className="container border border-primary mt-5 wrapper fadeInDown" style={{width: '400px', height: '620px'}}>
             <div>
                 <h1 className='text-center mt-2 p-2'>Register</h1>
-                <form>
+                <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label  className="form-label">Title</label>
                     <input onChange={(evt)=>{setTitle(evt.target.value)}} type="text" className="form-control" id="title" />
@@ -40,12 +67,12 @@ function Register(){
                     <label className="form-check-label" >Check me out</label>
                 </div >
                 <div className="text-end">
-                    <button onClick={register} type="submit" className="btn btn-primary text-end">Submit</button>
+                    <button type="submit" className="btn btn-primary text-end">Submit</button>
                 </div>
             </form>
             </div>
         </div>
     );
 }
- 
-export default Register;
+
+        export default Register;
