@@ -11,6 +11,8 @@ import DefinePermission from './pages/DefinePermission';
 import ForgotPassword from './pages/ForgotPassword';
 import UpdatePassword from './pages/UpdatePassword';
 import AcceptPermissions from './pages/AcceptPermissions';
+import UserDemo from './pages/UserDemo';
+import UserInformationUpdate from './pages/UserInformationUpdate';
 
 function App() {
   const [token, setToken] = useState(""); // Use state to manage token
@@ -38,6 +40,8 @@ function App() {
         <Route path='/add-new-employee' element={<AddNewEmployee />} />
         <Route path='/define-permission' element={<DefinePermission />} />
         <Route path='/accept-permissions' element={<AcceptPermissions />} />
+        <Route path='/user-demo' element={<UserDemo/>} />
+        <Route path='/user-information-update' element={<UserInformationUpdate/>} />
       </Routes>
     </BrowserRouter>
   );
