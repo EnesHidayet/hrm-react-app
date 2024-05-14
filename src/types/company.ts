@@ -1,14 +1,14 @@
 export interface Company {
-  sirketAdi: string;
-  yoneticiAdi: string;
-  yoneticiMail: string;
-  yoneticiMailOnay: boolean;
-  plan: "AYLIK" | "YILLIK";
-  siteYoneticisiOnayi: boolean;
+  id: number;
+  companyName: string;
+  nameOfUser: string;
+  emailOfUser: string;
+  isManagerMailApproved: boolean;
+  type: "AYLIK" | "YILLIK";
+  isApproved: boolean;
 }
 export interface CompanyState {
   companyList: Company[];
   isLoadingFetchApproveCompany: boolean;
   isLoadingFetchCompanyList: boolean;
 }
-

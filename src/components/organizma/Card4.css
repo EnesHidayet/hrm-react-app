@@ -1,0 +1,13 @@
+.comment-card p {
+    max-width: 90%; /* Adjust the percentage as needed */
+  }
+  .comment-card p {
+    text-overflow: ellipsis;
+    white-space: nowrap; /* Prevent word wrapping */
+  }
+
+  .comment-card-content {
+    overflow-y: auto; /* Enable vertical scrolling */
+    height: 150px; /* Set a maximum height for the scrollable area */
+  }
+  

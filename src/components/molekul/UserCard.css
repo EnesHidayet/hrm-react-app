@@ -1,0 +1,21 @@
+.user-card{
+    text-align: center;
+}
+
+.image{
+    border-radius: 100%;
+    margin-bottom: 5%;
+    width: 8rem;
+}
+
+.title{
+    color: #131515;
+    font-family:  "Times New Roman", serif;
+
+}
+
+.name{
+    color: 	#d6a7a7;
+    font-family:  "Times New Roman", monospace;
+    font-size: large;
+}
