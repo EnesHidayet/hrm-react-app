@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios"; // Import axios for HTTP requests
 
@@ -8,11 +8,13 @@ function PersonelListesi() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8081/hrm/user/find-all-users");
+        const response = await axios.get(
+          "http://localhost:8081/hrm/user/find-all-users"
+        );
         setPersonnelData(response.data); // Update state with fetched data
-        console.log(response.data)
+        console.log(response.data);
       } catch (error) {
-        console.error("Error fetching personnel data:", error);        
+        console.error("Error fetching personnel data:", error);
         // Handle errors appropriately (e.g., display error message to user)
       }
     };
@@ -61,7 +63,7 @@ function PersonelListesi() {
   
 
   return (
-    <table style={{ fontFamily: "Merriweather,serif"}} className="table table-sm table-hover mt-2">
+    <table style={{ fontFamily: "Merriweather,serif" }} className="table table-sm table-hover">
       <thead className="table-light">
         <tr>
           <th>ID</th>
@@ -98,11 +100,7 @@ function PersonelListesi() {
               </Link>
             </td>
             <td>
-            <button
-                className="btn"
-                style={{ fontSize: 13, letterSpacing: 2 }}
-                onClick={() => handleDelete(person.id)}
-              >
+              <button className="btn" style={{ fontSize: 13, letterSpacing: 2 }}>
                 Sil
               </button>
             </td>
