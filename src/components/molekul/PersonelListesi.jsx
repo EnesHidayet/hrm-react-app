@@ -20,8 +20,48 @@ function PersonelListesi() {
     fetchData();
   }, []);
 
+  const handleDelete = async (id) => {
+    const token = sessionStorage.getItem("token"); 
+    if (!token) {
+      console.error("Missing token for user deletion");
+      return; // Token yoksa hatayı işle
+    }
+  
+    try {
+      const userToDelete = personnelData.find((person) => person.id === id);
+      console.log(userToDelete);
+      if (!userToDelete) {
+        console.error("User not found");
+        return;
+      }
+      
+      const requestData = {
+        authId: userToDelete.authId,
+        token: token
+      };
+      console.log(requestData);
+      // Silme isteğini gönder
+      const response = await axios.delete(
+        `http://localhost:8080/hrm/auth/soft-delete`, 
+        requestData
+      );
+  
+      if (response.status === 200) {
+        console.log("User status successfully deleted:", response.data);
+        setPersonnelData(personnelData.filter((person) => person.id !== id));
+      } else {
+        console.error("Error deleting user status:", response.data);
+      }
+    } catch (error) {
+      console.error("Error deleting user status:", error);
+    }
+  };
+  
+  
+  
+
   return (
-    <table style={{ fontFamily: "Merriweather,serif" }} className="table table-sm table-hover">
+    <table style={{ fontFamily: "Merriweather,serif"}} className="table table-sm table-hover mt-2">
       <thead className="table-light">
         <tr>
           <th>ID</th>
@@ -58,7 +98,11 @@ function PersonelListesi() {
               </Link>
             </td>
             <td>
-              <button className="btn" style={{ fontSize: 13, letterSpacing: 2 }}>
+            <button
+                className="btn"
+                style={{ fontSize: 13, letterSpacing: 2 }}
+                onClick={() => handleDelete(person.id)}
+              >
                 Sil
               </button>
             </td>

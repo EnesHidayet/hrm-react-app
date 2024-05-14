@@ -2,40 +2,30 @@ import { Link } from "react-router-dom"; // Import Link for routing
 
 function Menu() {
   return (
-    <div
-      style={{
-        backgroundColor: "white-smoke",
-        borderRadius: 40,
-        outline: 0,
-        opacity: 1,
-        fontWeight: 500,
-        fontSize: 13,
-        letterSpacing: 2,
-      }}
-      className="sidebar"
-    >
-      <ul>
-        <br></br>
-        <li>
-          <Link to="/">Tüm Personeller</Link>
-        </li>
-        <li>
-          <Link to="/departments">Departmanlara Göre</Link>
-        </li>
-        <li>
-          <Link to="/active">Aktif Personeller</Link>
-        </li>
-        <li>
-          <Link to="/inactive">Pasif Personeller</Link>
-        </li>
-        <li>
-          <Link to="/add-new-employee">Yeni Personel Ekle</Link>
-        </li>
-        <li>
-          <Link to="/departments">Departmanlar</Link>
-        </li>
-      </ul>
-    </div>
+    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/">Personel Yönetimi</Link>
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link" to="/personel-yonetim">Tüm Personeller</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/active">Aktif Personeller</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/inactive">Pasif Personeller</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/add-new-employee">Yeni Personel Ekle</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
   );
 }
 

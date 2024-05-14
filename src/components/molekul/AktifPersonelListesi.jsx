@@ -19,7 +19,8 @@ function AktifPersonelListesi() {
     fetchData();
   }, []);
 
-  return (
+  return ( 
+    <div className="container mt-2">
     <table style={{ fontFamily: "Merriweather,serif" }} className="table table-sm table-hover">
       <thead className="table-light">
         <tr>
@@ -65,6 +66,11 @@ function AktifPersonelListesi() {
         ))}
       </tbody>
     </table>
+    <a style={{backgroundColor: '#f1f1f1', color: 'black', borderRadius: '50%', textDecoration: 'none', display: "inline-block", padding: '8px 16px'}} href="/personel-yonetim" >&#8249;</a>
+
+
+    </div>
+    
   );
 }
 

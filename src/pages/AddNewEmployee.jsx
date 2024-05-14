@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 
@@ -13,7 +13,29 @@ function AddEmployee() {
   const [drivingLicense, setDrivingLicense] = useState("");
   const [department, setDepartment] = useState("");
   const [title, setTitle] = useState("");
-  // ... other state variables for equipmentList, shiftList, leaveList, breakList (if needed)
+  const [password,setPassword] = useState('');
+  
+  const navigate = useNavigate();
+
+  // Sayfa yeniden yüklendiğinde, form alanlarını temizler
+  const clearForm = () => {
+    setFullName("");
+    setEmail("");
+    setPhoneNumber("");
+    setAddress("");
+    setIdentityNumber("");
+    setBirthDate("");
+    setMilitaryService("");
+    setDrivingLicense("");
+    setDepartment("");
+    setTitle("");
+    setPassword("");
+  };
+
+  useEffect(() => {
+    // Sayfa yeniden yüklendiğinde, form alanlarını temizle
+    clearForm();
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission behavior
@@ -29,7 +51,6 @@ function AddEmployee() {
       drivingLicense,
       department,
       title,
-      // ... other data for equipmentList, shiftList, leaveList, breakList (if needed)
     };
 
     try {
@@ -44,26 +65,42 @@ function AddEmployee() {
 
   };
 
-  const navigate = useNavigate();
-  const handleDone = () => {
-    navigate("/"); // Redirect to home page
-    };
+  async function handleRegisterSubmit(event) {
+    event.preventDefault();
 
-    const handleAddAnother = () => {
-        setFullName(""); // Reset form fields
-        setEmail("");
-        setPhoneNumber("");
-        setAddress("");
-        setIdentityNumber("");
-        setBirthDate("");
-        setMilitaryService("");
-        setDrivingLicense("");
-        setDepartment("");
-        setTitle("");
-    };
+    try {
+      const response = await axios.post('http://localhost:8080/hrm/auth/register', {
+        fullName,
+        email,
+        title,
+        phoneNumber,
+        password,
+      });
+
+      if (response.status === 200) {
+        console.log('Register successful:', response.data);
+        alert('Kullanıcı Kaydedildi!');
+      } else {
+        console.error('Register failed:', response.data);
+      }
+    } catch (error) {
+      console.error('Register error:', error);
+      // Handle errors appropriately
+    }
+  }
+
+  const handleDone = () => {
+    navigate("/");
+  };
+
+  const handleAddAnother = () => {
+    clearForm();
+  };
 
   return (
     <div className="container border p-5 mt-5">
+      <a style={{backgroundColor: '#f1f1f1', color: 'black', borderRadius: '50%', textDecoration: 'none', display: "inline-block", padding: '8px 16px'}} href="/personel-yonetim" >&#8249;</a>
+
       <h1 className="text-center mb-3">Yeni Personel Ekle</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group mb-3">
@@ -85,6 +122,17 @@ function AddEmployee() {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group mb-3">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
@@ -196,7 +244,7 @@ function AddEmployee() {
             required
           />
         </div>
-        <button type="submit" className="btn btn-primary mt-3">Kaydet</button>
+        <button type="submit" className="btn btn-primary mt-3" onClick={handleRegisterSubmit}>Kaydet</button>
         <button type="button" className="btn btn-secondary ml-2 mt-3" onClick={handleDone}>
           Ana Sayfa
         </button>
@@ -206,8 +254,6 @@ function AddEmployee() {
       </form>
     </div>
   );
+}
 
-  }
-  
-  export default AddEmployee;
-  
+export default AddEmployee;
