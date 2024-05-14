@@ -1,2 +1,3 @@
 import companySlice from "./companySlice.ts";
-export { companySlice };
+import userSlice from "./userSlice.ts";
+export { companySlice, userSlice };

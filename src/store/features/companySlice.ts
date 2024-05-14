@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import companyController from "../../config/CompanyController";
-import { Company, baseResponseEntity, CompanyState } from "../../types";
+import { baseResponseEntity, CompanyState } from "../../types";
 
 // TODO COMPANY INITIAL STATE FETCH VE SLICE ISMLERI DUZENLENECEK. LOGIN/PERSONEL VB KALMIS ISIMLER DUZELTILECEK.
 const companyInitialState: CompanyState = {
@@ -78,28 +78,12 @@ const companySlice = createSlice({
   name: "company",
   initialState: companyInitialState,
 
-  reducers: {
-    approveCompany: (state, action: PayloadAction<number>) => {
-      debugger;
-      const companyId = action.payload;
-      const updatedCompanyList = state.companyList.map((company) =>
-        company.id === companyId ? { ...company, isApproved: true } : company
-      );
-      state.companyList = updatedCompanyList;
-    },
-    denyCompany: (state, action: PayloadAction<number>) => {
-      debugger;
-      const companyId = action.payload;
-      const updatedCompanyList = state.companyList.map((company) =>
-        company.id === companyId ? { ...company, isApproved: false } : company
-      );
-      state.companyList = updatedCompanyList;
-    },
-  },
+  reducers: {},
   extraReducers: (build) => {
     build.addCase(fetchApproveCompany.pending, (state) => {
       state.isLoadingFetchApproveCompany = true;
     }); // işlemin devam ettiği an
+
     build.addCase(fetchApproveCompany.fulfilled, (state, action) => {
       state.isLoadingFetchApproveCompany = false;
       if (action.payload?.status !== 200) {
@@ -107,6 +91,12 @@ const companySlice = createSlice({
       } else {
         console.log("gelen data...:", JSON.stringify(action.payload));
       }
+
+      const companyId = action.meta.arg;
+      const updatedCompanyList = state.companyList.map((company) =>
+        company.id === companyId ? { ...company, isApproved: true } : company
+      );
+      state.companyList = updatedCompanyList;
     });
 
     build.addCase(fetchDenyCompany.pending, (state) => {
@@ -119,7 +109,13 @@ const companySlice = createSlice({
       } else {
         console.log("gelen data...:", JSON.stringify(action.payload));
       }
+      const companyId = action.meta.arg;
+      const updatedCompanyList = state.companyList.map((company) =>
+        company.id === companyId ? { ...company, isApproved: false } : company
+      );
+      state.companyList = updatedCompanyList;
     });
+
     // işlemin tamamladığı an
     build.addCase(fetchApproveCompany.rejected, (state) => {
       state.isLoadingFetchApproveCompany = false;
@@ -138,5 +134,4 @@ const companySlice = createSlice({
     }); // işlemin iptal olduğu an
   },
 });
-export const { approveCompany, denyCompany } = companySlice.actions;
 export default companySlice.reducer;

@@ -14,6 +14,7 @@ import AcceptPermissions from "./pages/AcceptPermissions";
 import UserDemo from "./pages/UserDemo";
 import UserInformationUpdate from "./pages/UserInformationUpdate";
 import Company from "./pages/Company";
+import ShiftManagement from "./pages/ShiftManagement.tsx";
 
 function App() {
   const [token, setToken] = useState(""); // Use state to manage token
@@ -47,6 +48,7 @@ function App() {
           element={<UserInformationUpdate />}
         />
         <Route path="/company" element={<Company />} />
+        <Route path="/shift-management" element={<ShiftManagement />} />
       </Routes>
     </BrowserRouter>
   );
