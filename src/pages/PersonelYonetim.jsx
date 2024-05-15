@@ -1,42 +1,48 @@
-import { useNavigate } from "react-router-dom";
-import Menu from "../components/molekul/Menu";
-import { Link } from "react-router-dom"; // Import Link for routing
-import PersonelAra from "../components/molekul/PersonelAra";
+import React, { useState } from "react";
 import PersonelListesi from "../components/molekul/PersonelListesi";
+import AddEmployee from "./AddNewEmployee";
 
-function PersonelYonetim(){
+function PersonelYonetim({ id, isModalOpen, closeModal }) {
+  const [isOpen, setIsOpen] = useState(false);
 
-    const navigate = useNavigate();
-    const handleHomeClick = () => {
-      navigate('/');
-    };  
+  const [isPersonelListVisible, setIsPersonelListVisible] = useState(false);
+  const [isAddEmployeeVisible, setIsAddEmployeeVisible] = useState(false);
 
-    return(
-        <div  className="container border mt-5">
-            <div style={{backgroundColor: '#5b70f3'}} className="row">
-                <div style={{width: '70%'}} className="column">
-                    <h2 style={{color: '#f0fbff', fontFamily: 'Merriweather,serif'}}>Personel Yönetim Platformu</h2>             
-                </div>
-                <div  style={{width: '30%'}} className="column text-end mt-2">
-                    <PersonelAra></PersonelAra>
-                </div>                           
-            </div>
-            <div className="row">
-                <div style={{width: '20%'}} className="column border">
-                    <Menu></Menu>
-                   
-                </div>
-                <div style={{width: '80%'}} className="column border">
-                    <div style={{width: '100%', height:700, marginLeft: 0, overflowX: 'auto'}} className="row border">
-                        <PersonelListesi></PersonelListesi>
-                    </div>
-                </div>
-            </div>
+  const togglePersonelListesi = () => {
+    setIsPersonelListVisible(!isPersonelListVisible);
+    // Yeni personel ekleme formunu gizle
+    setIsAddEmployeeVisible(false);
+  };
 
-             
+  const toggleAddEmployee = () => {
+    setIsAddEmployeeVisible(!isAddEmployeeVisible);
+    // Personel listesini gizle
+    setIsPersonelListVisible(false);
+  };
+
+  return (
+    <div className="personel-box" style={{ display: isModalOpen ? 'flex' : 'none' }}>
+      <h3 onClick={() => closeModal(id)} id="modal-kapat">x</h3>
+      <div className="personel-buttons">
+        <button onClick={togglePersonelListesi}>
+          {isPersonelListVisible ? "Personel Listesini Gizle" : "Personel Listesini Göster"}
+        </button>
+        <button onClick={toggleAddEmployee}>
+          {isAddEmployeeVisible ? "Yeni Personel Ekleme Formunu Gizle" : "Yeni Personel Ekleme Formunu Göster"}
+        </button>
+      </div>
+      {isPersonelListVisible && (
+        <div className="personel-listesi-container">
+          <PersonelListesi />
         </div>
-    )
-    ;
+      )}
+      {isAddEmployeeVisible && (
+        <div className="add-employee-container">
+          <AddEmployee />
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default PersonelYonetim;

@@ -1,19 +1,21 @@
-// import React, { useEffect, useState } from 'react';
-import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Home from "./pages/Home";
-import User from "./pages/User";
+import Company from "./pages/Company";
+import AcceptPermissions from "./pages/AcceptPermissions";
+import EditEmployee from "./pages/EditEmployee";
+import AktifPersonelListesi from "./components/molekul/AktifPersonelListesi";
+import InaktifPersonelListesi from "./components/molekul/InaktifPersonelListesi";
+import Demo from "./pages/HomePageDemo";
+import USERDemo from "./pages/UserDemo";
+import UserInformationUpdate from "./pages/UserInformationUpdate";
+import AddComment from "./pages/AddComment";
+import ProtectedRoute from "./components/ProtectedRoute"; // Import the ProtectedRoute component
+import { useEffect, useState } from "react";
 import PersonelYonetim from "./pages/PersonelYonetim";
 import AddNewEmployee from "./pages/AddNewEmployee";
 import DefinePermission from "./pages/DefinePermission";
 import ForgotPassword from "./pages/ForgotPassword";
 import UpdatePassword from "./pages/UpdatePassword";
-import AcceptPermissions from "./pages/AcceptPermissions";
-import UserDemo from "./pages/UserDemo";
-import UserInformationUpdate from "./pages/UserInformationUpdate";
-import Company from "./pages/Company";
 import ShiftManagement from "./pages/ShiftManagement.tsx";
 
 function App() {
@@ -21,7 +23,7 @@ function App() {
 
   useEffect(() => {
     const storedToken = sessionStorage.getItem("token");
-    if (storedToken) {
+    if (storedToken !== null) {
       setToken(storedToken);
     }
   }, []); // Load token from storage on mount
@@ -29,25 +31,60 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Demo />} />
         <Route path="/login" element={<Login setToken={setToken} />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/update-password" element={<UpdatePassword />} />
         <Route
-          path="/user"
-          element={token ? <User /> : <Navigate to="/login" replace />}
+          path="/user-demo"
+          element={<ProtectedRoute element={USERDemo} />}
+        />
+        <Route
+          path="/personel-yonetim"
+          element={<ProtectedRoute element={PersonelYonetim} />}
+        />
+        <Route
+          path="/add-new-employee"
+          element={<ProtectedRoute element={AddNewEmployee} />}
+        />
+        <Route
+          path="/define-permission"
+          element={<ProtectedRoute element={DefinePermission} />}
+        />
+        <Route
+          path="/edit-employee/:employeeId"
+          element={<ProtectedRoute element={EditEmployee} />}
+        />
+        <Route
+          path="/active"
+          element={<ProtectedRoute element={AktifPersonelListesi} />}
+        />
+        <Route
+          path="/inactive"
+          element={<ProtectedRoute element={InaktifPersonelListesi} />}
+        />
+        <Route path="/" element={<Demo />} />
+        <Route
+          path="/user-information-update"
+          element={<ProtectedRoute element={UserInformationUpdate} />}
+        />
+        <Route
+          path="/add-comment"
+          element={<ProtectedRoute element={AddComment} />}
         />
         <Route path="/personel-yonetim" element={<PersonelYonetim />} />
         <Route path="/add-new-employee" element={<AddNewEmployee />} />
-        <Route path="/define-permission" element={<DefinePermission />} />
+        <Route path="define-permission" element={<DefinePermission />} />
         <Route path="/accept-permissions" element={<AcceptPermissions />} />
-        <Route path="/user-demo" element={<UserDemo />} />
+        <Route path="/company" element={<Company />} />
+        <Route path="/edit-employee/:employeeId" element={<EditEmployee />} />
+        <Route path="/active" element={<AktifPersonelListesi />} />
+        <Route path="/inactive" element={<InaktifPersonelListesi />} />
         <Route
           path="/user-information-update"
           element={<UserInformationUpdate />}
         />
-        <Route path="/company" element={<Company />} />
+
         <Route path="/shift-management" element={<ShiftManagement />} />
       </Routes>
     </BrowserRouter>
