@@ -3,7 +3,6 @@ import Card1 from "../components/organizma/Card1";
 import Card2 from "../components/organizma/Card2";
 import Card3 from "../components/organizma/Card3";
 import Card4 from "../components/organizma/Card4";
-import CommentSection from "../components/organizma/CommentSection"; 
 
 
 import './HomeDemo.css'

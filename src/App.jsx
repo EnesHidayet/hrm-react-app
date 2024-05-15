@@ -1,5 +1,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
+<<<<<<< HEAD
+=======
+import Company from "./pages/Company";
+import AcceptPermissions from "./pages/AcceptPermissions";
+import EditEmployee from './pages/EditEmployee';
+import AktifPersonelListesi from './components/molekul/AktifPersonelListesi';
+import InaktifPersonelListesi from './components/molekul/InaktifPersonelListesi';
+import Demo from './pages/HomePageDemo';
+import USERDemo from './pages/UserDemo';
+import UserInformationUpdate from './pages/UserInformationUpdate';
+import AddComment from './pages/AddComment';
+import ProtectedRoute from './components/ProtectedRoute'; // Import the ProtectedRoute component
+import { useEffect, useState } from 'react';
+>>>>>>> 15cd6e9265c51bdeb36009c0e790474cee68fe7f
 import PersonelYonetim from './pages/PersonelYonetim';
 import AddNewEmployee from './pages/AddNewEmployee';
 import DefinePermission from './pages/DefinePermission';
@@ -44,6 +58,21 @@ function App() {
         <Route path='/' element={<Demo />} />
         <Route path='/user-information-update' element={<ProtectedRoute element={UserInformationUpdate} />} />
         <Route path='/add-comment' element={<ProtectedRoute element={AddComment} />} />
+<<<<<<< HEAD
+=======
+        <Route path='/personel-yonetim' element={<PersonelYonetim />} />
+        <Route path='/add-new-employee' element={<AddNewEmployee />} />
+        <Route path='define-permission' element={<DefinePermission />} />
+        <Route path="/accept-permissions" element={<AcceptPermissions />} />
+        <Route path="/company" element={<Company />} />
+        <Route path="/edit-employee/:employeeId" element={<EditEmployee />} />
+        <Route path='/active' element={<AktifPersonelListesi />} />
+        <Route path='/inactive' element={<InaktifPersonelListesi />} />
+        <Route path='/user-information-update' element={< UserInformationUpdate/>} />
+
+
+
+>>>>>>> 15cd6e9265c51bdeb36009c0e790474cee68fe7f
       </Routes>
     </BrowserRouter>
   );

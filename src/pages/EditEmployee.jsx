@@ -68,7 +68,7 @@ function EditEmployee() {
 
   return (
     <div className="container mt-3">
-          <a style={{backgroundColor: '#f1f1f1', color: 'black', borderRadius: '50%', textDecoration: 'none', display: "inline-block", padding: '8px 16px', marginBottom: 10}} href="/personel-yonetim" >&#8249;</a>
+          <a style={{backgroundColor: '#f1f1f1', color: 'black', borderRadius: '50%', textDecoration: 'none', display: "inline-block", padding: '8px 16px', marginBottom: 10}} href="/user-Demo" >&#8249;</a>
       <br></br>
       <h2>Personel Düzenle - {employeeId}</h2>
       {employeeData && ( // Belirli bir kullanıcı verisi getirildiyse formu render et

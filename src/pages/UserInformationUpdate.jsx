@@ -52,7 +52,7 @@ function UserInformationUpdate() {
     }
 
     return (
-        <div className="container border radius mt-5" style={{ width: 400, height: 600, overflowX: 'auto' }}>
+        <div className="container border radius mt-5 login-box" style={{ width: 400, height: 600, overflowX: 'auto' }}>
             <form onSubmit={handleSubmit}>
                 <div className="text-center mt-2">
                     <img src="https://static-00.iconduck.com/assets.00/user-icon-2048x2048-ihoxz4vq.png" style={{ width: 60 }} alt="User" />
