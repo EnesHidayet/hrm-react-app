@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -25,8 +24,8 @@ function Login({ setToken }){
       if (response.status === 200) {
         console.log('Login successful:', response.data);
         const token = response.data.data; // Assuming token is in response.data.data
-        setToken(token); // Update token state
         sessionStorage.setItem('token', token); // Store token in sessionStorage
+        setToken(token); // Update token state
         navigate('/user-Demo'); // Redirect to user page
       } else {
         console.error('Login failed:', response.data);
@@ -39,6 +38,7 @@ function Login({ setToken }){
   }
 
     return(
+      <div className='login-bg'>
             <div className='login-box' >
                 <form onSubmit={handleSubmit}>
                     <h1 className="text-center" style={{color: 'white'}}>Login</h1>
@@ -54,10 +54,17 @@ function Login({ setToken }){
                     </div >
                     <button type="submit" className="btn btn-primary">SUBMIT</button>
                 </form>
-
+                <br></br>
                 <a href="/forgot-password" id="/forgot-password">Şifrenizi mi unuttunuz?</a>
+                <br></br>
+                <a href="/" id="/home">&#8249;</a>
 
             </div>
+
+            
+
+      </div>
+            
             
     )
 }

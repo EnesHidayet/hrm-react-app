@@ -4,8 +4,8 @@
 
 .image{
     border-radius: 100%;
-    margin-bottom: 5%;
-    width: 8rem;
+    margin-bottom: 2%;
+    width: 5rem;
 }
 
 .title{
@@ -17,5 +17,5 @@
 .name{
     color: 	#d6a7a7;
     font-family:  "Times New Roman", monospace;
-    font-size: large;
+    font-size: medium;
 }
