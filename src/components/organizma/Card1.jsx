@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import photos5 from '../media/photos5.jpg'
+import photos5 from '../media/photos3.jpg'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -57,7 +57,7 @@ const Card1 = () => {
             <img src={photos5} class="video-bg"/>
             <div className="bg-overlay"></div>
             <div className="home-text">
-                <h1 className="h1-1 home-s">simpleHRM</h1>
+                <h1 className="home-s h1-1">simpleHRM</h1>
                 <p className="home-s">"İnsanın Gücünü Platformumuzda Keşfedin."</p>
             </div>
 
