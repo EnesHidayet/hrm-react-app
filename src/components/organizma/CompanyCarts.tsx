@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   fetchApproveCompany,
   fetchCompanyList,
@@ -6,7 +6,7 @@ import {
 } from "../../store/features/companySlice";
 import { RootState, AppDispatch } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
-import { Company, baseResponseEntity, CompanyState } from "../../types";
+import { Company } from "../../types";
 
 function CompanyCarts() {
   const dispatch: AppDispatch = useDispatch();

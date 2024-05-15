@@ -1,21 +1,49 @@
 import React, { useEffect, useState } from "react";
-import {
-  fetchApproveCompany,
-  fetchCompanyList,
-  fetchDenyCompany,
-} from "../../store/features/companySlice";
 import { RootState, AppDispatch } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserList } from "../../store/features/userSlice";
+import { User } from "../../types";
 
 function ShiftManagement() {
   const dispatch: AppDispatch = useDispatch();
-  // Yerel durumu güncelle
 
-  const userList = useSelector((state: RootState) => state.user.userList);
+  // Local state to manage shifts
+  const [shifts, setShifts] = useState<{ employeeId: string; shift: string }[]>(
+    []
+  );
+  const [selectedEmployee, setSelectedEmployee] = useState<string>("");
+  const [selectedShift, setSelectedShift] = useState<string>("");
+
+  // Fetch user list on component mount
   useEffect(() => {
     dispatch(fetchUserList());
   }, [dispatch]);
+
+  // Selector for user list from Redux store
+  const userList = useSelector((state: RootState) => state.user.userList);
+
+  // Handler for assigning shift
+  const handleAssignShift = () => {
+    if (selectedEmployee && selectedShift) {
+      setShifts([
+        ...shifts,
+        { employeeId: selectedEmployee, shift: selectedShift },
+      ]);
+      // You can dispatch an action here to save shift assignment to the database
+    } else {
+      alert("Please select an employee and a shift.");
+    }
+  };
+
+  // Handler for assigning break
+  const handleAssignBreak = () => {
+    if (selectedEmployee) {
+      setShifts([...shifts, { employeeId: selectedEmployee, shift: "Break" }]);
+      // You can dispatch an action here to save break assignment to the database
+    } else {
+      alert("Please select an employee.");
+    }
+  };
 
   return (
     <>
@@ -23,102 +51,96 @@ function ShiftManagement() {
         <thead>
           <tr>
             <th className="text-center">
-              {/* INDEX */}
               <label>
                 <i className="fa fa-hashtag"></i>
               </label>
             </th>
             <th className="text-center">
-              {/* ÇALIŞAN ADI */}
               <label>
                 <i className="fa fa-fa-user"></i>
               </label>
             </th>
             <th className="text-center">
-              {/* SIRKET MAILI */}
               <i className="fa fa-envelope"></i>
             </th>
             <th className="text-center">
-              {/* TELEFONU */}
               <i className="fa fa-fa-mobile"></i>
             </th>
             <th className="text-center">
-              {/* START DATE */}
               <i className="fa fa-calendar-days"></i>
             </th>
             <th className="text-center">
-              {/* END DATA*/}
               <i className="fa fa-fa-calendar"></i>
             </th>
+            <th className="text-center">Actions</th>{" "}
+            {/* New column for actions */}
           </tr>
         </thead>
         <tbody>
           {userList.map((user: User, index) => (
-            <tr key={company.id}>
-              {/* INDEX */}
+            <tr key={user.id}>
+              <td className="text-center align-content-center">{index}</td>
               <td className="text-center align-content-center">
-                <p>{index}</p>
+                {user.fullName}
               </td>
-              {/* ŞİRKET ADI */}
+              <td className="text-center align-content-center">{user.email}</td>
               <td className="text-center align-content-center">
-                <p>{company.companyName}</p>
+                {user.phoneNumber}
               </td>
-              {/* YONETICI ADI */}
               <td className="text-center align-content-center">
-                <p>{company.nameOfUser}</p>
+                <input type="datetime-local" className=""></input>
               </td>
-              {/* SIRKET MAILI - YONETICI ONAYI */}
               <td className="text-center align-content-center">
-                <div className="text-center">
-                  <p>{company.emailOfUser}</p>&nbsp;&nbsp;
-                  {company.isManagerMailApproved ? (
-                    <i className={"fa fa-check-circle"}></i>
-                  ) : (
-                    <i className={"fa fa-clock"} style={{ color: "blue" }}></i>
-                  )}
-                </div>
+                <input type="datetime-local" className=""></input>
               </td>
-              {/* YILLIK-AYLIK PLAN */}
               <td className="text-center align-content-center">
-                <i className="">
-                  <p>{company.type}</p>
-                </i>
-              </td>
-              {/* ONAY DURUMU */}
-              <td className="text-center align-content-center">
-                <div className="fa-2x">
-                  {company.isApproved ? (
-                    <i
-                      className="fa-solid fa-check-circle"
-                      style={{ color: "green", fontSize: "1.5rem" }}
-                    ></i>
-                  ) : (
-                    <i
-                      className="fa-solid fa-xmark"
-                      style={{ color: "red", fontSize: "1.5rem" }}
-                    ></i>
-                  )}
-
-                  <div>
-                    <button
-                      className="btn btn-primary m-2"
-                      onClick={() => handleApprove(company.id)}
-                    >
-                      onayla
-                    </button>
-                    <button
-                      className="btn btn-danger m-2"
-                      onClick={() => handleReject(company.id)}
-                    >
-                      reddet
-                    </button>
-                  </div>
-                </div>
+                <button onClick={() => setSelectedEmployee(user.id)}>
+                  Assign Shift
+                </button>
+                <button onClick={() => setSelectedEmployee(user.id)}>
+                  Assign Break
+                </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <div>
+        {/* Shift and break assignment controls */}
+        <select
+          value={selectedEmployee}
+          onChange={(e) => setSelectedEmployee(e.target.value)}
+        >
+          <option value="">Select Employee</option>
+          {userList.map((user: User) => (
+            <option key={user.id} value={user.id}>
+              {user.fullName}
+            </option>
+          ))}
+        </select>
+        <select
+          value={selectedShift}
+          onChange={(e) => setSelectedShift(e.target.value)}
+        >
+          <option value="">Select Shift</option>
+          <option value="Morning Shift">Morning Shift</option>
+          <option value="Evening Shift">Evening Shift</option>
+          <option value="Night Shift">Night Shift</option>
+        </select>
+        <button onClick={handleAssignShift}>Assign Shift</button>
+        <button onClick={handleAssignBreak}>Assign Break</button>
+      </div>
+      <div>
+        {/* Display assigned shifts */}
+        <h2>Assigned Shifts</h2>
+        <ul>
+          {shifts.map((shift, index) => (
+            <li key={index}>
+              {shift.employeeId}: {shift.shift}
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }
