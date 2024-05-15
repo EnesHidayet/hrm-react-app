@@ -20,6 +20,7 @@ function LoginPage({ setToken }) {
         console.log('Login successful:', response.data);
         const token = response.data.data; // Assuming token is in response.data.data
         setToken(token); // Update token state
+        console.log('Token:', token);
         sessionStorage.setItem('token', token); // Store token in sessionStorage
         navigate('/user'); // Redirect to user page
       } else {

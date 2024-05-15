@@ -1,0 +1,138 @@
+/* Theme */
+/* :root {
+  
+  --arkaplan-rengi: #fff0e5;
+} */
+/* @media (data-theme="dark") {
+  :root {
+    --arkaplan-rengi: #121210; 
+  }
+  
+}
+@media (data-theme="light") {
+  :root {
+    --arkaplan-rengi: #fff0e5; 
+  } 
+  
+}
+*/
+.poetsen-one-regular {
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.heading-tag {
+  color: #FFBF00;
+}
+
+/* HomeUpdated Page */
+/* Navbar */
+
+.navbar {
+  border-bottom: 1px solid gray;
+  padding: 10px;
+}
+
+/* Dropdown */
+
+
+
+
+/* Navbar Links */
+.secondary {
+  display: inline-block;
+  margin-right: 10px;
+}
+/* Navbar Dropdown */
+
+.dropdown-link {
+  text-decoration: none;
+  color: #48536B;
+}
+
+/* .pico-muted-border-color{
+  border-color: #48536B;
+} */
+
+
+
+/* main */
+/* Sidebar */
+
+.sidebar {
+  
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+
+/* Anahtar kareler */
+@keyframes goster {
+  0% {
+    opacity: 0;
+    display: none;
+  }
+  100% {
+    opacity: 1;
+    display: block;
+  }
+}
+
+/* Sidebar Text*/
+
+
+
+.roboto-mono-sidebar-text {
+  font-family: "Roboto Mono", monospace;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 90px;
+  background-image: url("https://media.istockphoto.com/id/1362181407/tr/foto%C4%9Fraf/team-work-and-human-resource-management-concept.jpg?s=612x612&w=0&k=20&c=cX2nJWoHtY-LUr8U0JUG2q5NCxQEmJEytKla0VtJggI=");
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: goster 0.5s ease-in-out;
+}
+
+/* Theme Icon */
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+
+.dark-theme {
+  background-color: #212529;
+  color: #fff;
+}
+.light-theme {
+  background-color: #fff;
+  color: #333;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
