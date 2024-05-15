@@ -6,8 +6,30 @@
 
 }
 
+.login-bg {
+  background-color: black;
+  background-image: url(https://img.freepik.com/free-vector/neon-lined-pattern-dark-background-vector_53876-173383.jpg?w=740&t=st=1715685801~exp=1715686401~hmac=af04078417e639688b29cb654b2bc92cdebd1a7a2bbc164280bb23883afaad2f);
+  min-height: 100vh; /* Tam ekran yüksekliği */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-cards{
+  position: absolute;
+  top: 1.8%;
+  left: 10%;
+  width: 100%;
+  height: 90.5%;
+  display: none;
+  align-items: center;
+  justify-content:center;
+  background-color: rgb(255, 255, 255);
+}
+
+
 .landingpage {
-    width: 224vh;
+    width: 200vh;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -19,7 +41,7 @@
 }
 
 .video-bg {
-    width: 224vh;
+    width: 200vh;
     height: 100vh;
     position: absolute;
     top: 0;
@@ -200,9 +222,88 @@ p {
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
     border-radius: 10px;
+    color: white;
   }
   
-  
+
+  .personel-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(#141e30, #243b55);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    width: 90%; /* Adjust width as needed */
+    max-width: 1200px; /* Ensure it doesn't get too wide */
+    max-height: 700px;
+    overflow: auto; /* Handle overflow */
+    color: #f1f1f1;
+    flex-direction: column;
+}
+
+.personnel-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.personnel-table th, .personnel-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: white; /* Ensure text is readable on dark background */
+}
+
+.personnel-table th {
+    background: rgba(20, 30, 48, 0.9);
+}
+
+.personnel-table tbody tr:hover {
+    background: rgba(20, 30, 48, 0.7);
+}
+
+.btn {
+    background-color: #243b55;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #141e30;
+}
+.personel-box button {
+    margin: 10px; /* Adjust margins for spacing */
+    padding: 5px 10px; /* Adjust padding for content */
+    display: inline-block; /* Ensures buttons appear next to each other */
+  }
+
+.table-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(#141e30, #243b55);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    width: 90%; /* Adjust width as needed */
+    max-width: 1200px; /* Ensure it doesn't get too wide */
+    overflow: auto; /* Handle overflow */
+}
+.container-box {
+    background: linear-gradient(#141e30, #243b55);
+    color: #fff;
+}
+
+.user-menu{
+    background-color:#141820;
+}
 
 /* ---------- Animation --------------- */
 @keyframes fade {

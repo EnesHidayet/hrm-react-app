@@ -89,18 +89,13 @@ function AddEmployee() {
     }
   }
 
-  const handleDone = () => {
-    navigate("/");
-  };
-
   const handleAddAnother = () => {
     clearForm();
   };
 
-  return (
-    <div className="container border p-5 mt-5">
-      <a style={{backgroundColor: '#f1f1f1', color: 'black', borderRadius: '50%', textDecoration: 'none', display: "inline-block", padding: '8px 16px'}} href="/personel-yonetim" >&#8249;</a>
 
+  return (
+    <div className="personel-table mt-5">
       <h1 className="text-center mb-3">Yeni Personel Ekle</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group mb-3">
@@ -245,9 +240,7 @@ function AddEmployee() {
           />
         </div>
         <button type="submit" className="btn btn-primary mt-3" onClick={handleRegisterSubmit}>Kaydet</button>
-        <button type="button" className="btn btn-secondary ml-2 mt-3" onClick={handleDone}>
-          Ana Sayfa
-        </button>
+
         <button type="button" className="btn btn-secondary ml-2 mt-3" onClick={handleAddAnother}>
           Başka Ekle
         </button>
