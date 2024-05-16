@@ -1,45 +1,80 @@
 import React, { useEffect, useState } from "react";
-import { RootState, AppDispatch } from "../../store";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserList } from "../../store/features/userSlice";
-import { User } from "../../types";
+import { RootState, AppDispatch } from "../../store";
+import { fetchUserListForGivenIds } from "../../store/features/userSlice";
+import {
+  ShiftSaveRequestDto,
+  BreakSaveRequestDto,
+  User,
+  EShift,
+} from "../../types";
+import { fetchGetCompanyEmployees } from "../../store/features/companySlice";
+import {
+  fetchAssignShifts,
+  fetchAssignBreak,
+} from "../../store/features/userSlice";
 
-function ShiftManagement() {
+function ShiftManagement({ token }: { token: string }) {
   const dispatch: AppDispatch = useDispatch();
 
   // Local state to manage shifts
-  const [shifts, setShifts] = useState<{ employeeId: string; shift: string }[]>(
-    []
-  );
   const [selectedEmployee, setSelectedEmployee] = useState<string>("");
   const [selectedShift, setSelectedShift] = useState<string>("");
+  const [shifts, setShifts] = useState<ShiftSaveRequestDto[]>([]);
+  const [breaks, setBreaks] = useState<BreakSaveRequestDto[]>([]);
 
-  // Fetch user list on component mount
   useEffect(() => {
-    dispatch(fetchUserList());
-  }, [dispatch]);
+    const fetchData = async (token: string) => {
+      try {
+        const action = await dispatch(
+          fetchGetCompanyEmployees(`?token=${token}`)
+        );
+        if (fetchGetCompanyEmployees.fulfilled.match(action)) {
+          const data: string[] = action.payload?.data;
+          if (data) {
+            dispatch(fetchUserListForGivenIds(data));
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching company employees:", error);
+      }
+    };
+
+    if (token) {
+      console.log("Token in useEffect:", token);
+      fetchData(token);
+    }
+  }, [dispatch, token]);
 
   // Selector for user list from Redux store
   const userList = useSelector((state: RootState) => state.user.userList);
 
   // Handler for assigning shift
-  const handleAssignShift = () => {
+  const handleAssignShift = async () => {
     if (selectedEmployee && selectedShift) {
-      setShifts([
-        ...shifts,
-        { employeeId: selectedEmployee, shift: selectedShift },
-      ]);
-      // You can dispatch an action here to save shift assignment to the database
+      const shiftData: ShiftSaveRequestDto = {
+        userId: selectedEmployee,
+        type: selectedShift as EShift,
+        start: new Date(),
+        end: new Date(),
+      };
+      await dispatch(fetchAssignShifts(shiftData));
+      setShifts([...shifts, shiftData]);
     } else {
       alert("Please select an employee and a shift.");
     }
   };
 
-  // Handler for assigning break
-  const handleAssignBreak = () => {
+  const handleAssignBreak = async () => {
     if (selectedEmployee) {
-      setShifts([...shifts, { employeeId: selectedEmployee, shift: "Break" }]);
-      // You can dispatch an action here to save break assignment to the database
+      const breakData: BreakSaveRequestDto = {
+        userId: selectedEmployee,
+        description: "Break",
+        start: new Date(),
+        end: new Date(),
+      };
+      await dispatch(fetchAssignBreak(breakData));
+      setBreaks([...breaks, breakData]); // Change shifts to breaks here
     } else {
       alert("Please select an employee.");
     }
@@ -47,53 +82,33 @@ function ShiftManagement() {
 
   return (
     <>
+      {/* Table for displaying user list */}
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th className="text-center">
-              <label>
-                <i className="fa fa-hashtag"></i>
-              </label>
-            </th>
-            <th className="text-center">
-              <label>
-                <i className="fa fa-fa-user"></i>
-              </label>
-            </th>
-            <th className="text-center">
-              <i className="fa fa-envelope"></i>
-            </th>
-            <th className="text-center">
-              <i className="fa fa-fa-mobile"></i>
-            </th>
-            <th className="text-center">
-              <i className="fa fa-calendar-days"></i>
-            </th>
-            <th className="text-center">
-              <i className="fa fa-fa-calendar"></i>
-            </th>
-            <th className="text-center">Actions</th>{" "}
-            {/* New column for actions */}
+            <th>#</th>
+            <th>User</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {userList.map((user: User, index) => (
             <tr key={user.id}>
-              <td className="text-center align-content-center">{index}</td>
-              <td className="text-center align-content-center">
-                {user.fullName}
+              <td>{index + 1}</td>
+              <td>{user.fullName}</td>
+              <td>{user.email}</td>
+              <td>{user.phoneNumber}</td>
+              <td>
+                <input type="datetime-local" />
               </td>
-              <td className="text-center align-content-center">{user.email}</td>
-              <td className="text-center align-content-center">
-                {user.phoneNumber}
+              <td>
+                <input type="datetime-local" />
               </td>
-              <td className="text-center align-content-center">
-                <input type="datetime-local" className=""></input>
-              </td>
-              <td className="text-center align-content-center">
-                <input type="datetime-local" className=""></input>
-              </td>
-              <td className="text-center align-content-center">
+              <td>
                 <button onClick={() => setSelectedEmployee(user.id)}>
                   Assign Shift
                 </button>
@@ -105,8 +120,9 @@ function ShiftManagement() {
           ))}
         </tbody>
       </table>
+
+      {/* Controls for shift and break assignment */}
       <div>
-        {/* Shift and break assignment controls */}
         <select
           value={selectedEmployee}
           onChange={(e) => setSelectedEmployee(e.target.value)}
@@ -123,20 +139,21 @@ function ShiftManagement() {
           onChange={(e) => setSelectedShift(e.target.value)}
         >
           <option value="">Select Shift</option>
-          <option value="Morning Shift">Morning Shift</option>
-          <option value="Evening Shift">Evening Shift</option>
-          <option value="Night Shift">Night Shift</option>
+          <option value={EShift.MORNING}>Morning Shift</option>
+          <option value={EShift.AFTERNOON}>Evening Shift</option>
+          <option value={EShift.NIGHT}>Night Shift</option>
         </select>
         <button onClick={handleAssignShift}>Assign Shift</button>
         <button onClick={handleAssignBreak}>Assign Break</button>
       </div>
+
+      {/* Display assigned shifts */}
       <div>
-        {/* Display assigned shifts */}
         <h2>Assigned Shifts</h2>
         <ul>
           {shifts.map((shift, index) => (
             <li key={index}>
-              {shift.employeeId}: {shift.shift}
+              {shift.userId}: {shift.type}
             </li>
           ))}
         </ul>

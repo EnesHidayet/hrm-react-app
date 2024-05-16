@@ -51,17 +51,29 @@ export interface Leave {
   lastName: string;
   isLeaveApproved: boolean;
 }
-enum EShift {
-  ROLE_EMPLOYEE,
-  ROLE_MANAGER,
-  ROLE_ADMIN,
+export enum EShift {
+  MORNING = "MORNING",
+  AFTERNOON = "AFTERNOON",
+  NIGHT = "NIGHT",
 }
-enum EStatus {
+export enum EStatus {
   ACTIVE,
   DELETED,
   PENDING,
   BANNED,
   INACTIVE,
+}
+export interface ShiftSaveRequestDto {
+  userId: string;
+  type: EShift;
+  start: Date;
+  end: Date;
+}
+export interface BreakSaveRequestDto {
+  userId: string;
+  description: string;
+  start: Date;
+  end: Date;
 }
 
 export interface UserState {

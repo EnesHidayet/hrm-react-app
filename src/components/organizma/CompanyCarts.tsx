@@ -13,10 +13,10 @@ function CompanyCarts() {
 
   // Yerel durumu güncelle
 
-  const handleApprove = (id: number) => {
+  const handleApprove = (id: string) => {
     dispatch(fetchApproveCompany(id));
   };
-  const handleReject = (id: number) => {
+  const handleReject = (id: string) => {
     dispatch(fetchDenyCompany(id));
   };
   const companyList = useSelector(
@@ -79,7 +79,7 @@ function CompanyCarts() {
               {/* SIRKET MAILI - YONETICI ONAYI */}
               <td className="text-center align-content-center">
                 <div className="text-center">
-                  <p>{company.emailOfUser}</p>&nbsp;&nbsp;
+                  <p>{company.managerMail}</p>&nbsp;&nbsp;
                   {company.isManagerMailApproved ? (
                     <i className={"fa fa-check-circle"}></i>
                   ) : (

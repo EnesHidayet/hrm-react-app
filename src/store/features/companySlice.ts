@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import companyController from "../../config/CompanyController";
-import { baseResponseEntity, CompanyState } from "../../types";
+import {
+  basicResponseEntity as basicResponseEntity,
+  CompanyState,
+} from "../../types";
+import axios from "axios";
 
 // TODO COMPANY INITIAL STATE FETCH VE SLICE ISMLERI DUZENLENECEK. LOGIN/PERSONEL VB KALMIS ISIMLER DUZELTILECEK.
 const companyInitialState: CompanyState = {
@@ -12,21 +16,20 @@ const companyInitialState: CompanyState = {
 export const fetchApproveCompany = createAsyncThunk(
   "company/fetchApprove",
   // COMPANY ID AS A PAYLOAD
-  async (payload: number) => {
+  async (payload: string) => {
     try {
-      const result: baseResponseEntity = await fetch(
-        companyController.approve,
+      const result: basicResponseEntity = await fetch(
+        `${companyController.approve}?id=${payload}`,
         {
-          method: "PUT",
+          method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(payload),
         }
       )
         .then((data) => data.json())
         .then((data) => data);
-
+      console.log("payload------> " + payload);
       return result;
     } catch (error) {
       console.log("ERROR: company/fetchApproveCompany...:" + error);
@@ -36,15 +39,17 @@ export const fetchApproveCompany = createAsyncThunk(
 export const fetchDenyCompany = createAsyncThunk(
   "company/fetchDeny",
   // COMPANY ID AS A PAYLOAD
-  async (payload: number) => {
+  async (payload: string) => {
     try {
-      const result: baseResponseEntity = await fetch(companyController.deny, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      })
+      const result: basicResponseEntity = await fetch(
+        `${companyController.deny}?id=${payload}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
         .then((data) => data.json())
         .then((data) => data);
 
@@ -59,7 +64,7 @@ export const fetchCompanyList = createAsyncThunk(
   "company/fetchCompanyList",
   async () => {
     try {
-      const result: baseResponseEntity = await fetch(companyController.list, {
+      const result: basicResponseEntity = await fetch(companyController.list, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -70,6 +75,28 @@ export const fetchCompanyList = createAsyncThunk(
       return result;
     } catch (error) {
       console.log("ERROR: company/fetchCompanyList...:" + error);
+    }
+  }
+);
+
+export const fetchGetCompanyEmployees = createAsyncThunk(
+  "company/fetchCompanyEmployees",
+  async (payload: string) => {
+    try {
+      const response = await axios.post(
+        `${companyController.get_company_employees}${payload}`, // Append the token as a query parameter
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data.data);
+      return response.data;
+    } catch (error) {
+      console.log("ERROR: company/fetchCompanyEmployees...:", error);
+      throw error;
     }
   }
 );

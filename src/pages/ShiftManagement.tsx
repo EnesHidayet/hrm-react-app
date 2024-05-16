@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import ShiftManagementCart from "../components/organizma/ShiftManagementCart";
 
-function ShiftManagement() {
+function ShiftManagement({ token }) {
   const navigate = useNavigate();
   return (
     <div className="container">
@@ -26,7 +26,7 @@ function ShiftManagement() {
         </div>
       </div>
       <div className="row m-3 vh-100">
-        <ShiftManagementCart />
+        <ShiftManagementCart token={token} />
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ function Company() {
           </h1>
         </div>
       </div>
-      <div className="row m-3 vh-100">
+      <div className="row m-3">
         <CompanyCarts />
       </div>
     </div>
