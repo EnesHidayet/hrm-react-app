@@ -5,6 +5,7 @@ import { BiSolidCommentEdit } from "react-icons/bi";
 import UserCard from '../components/molekul/UserCard';
 import PersonelYonetim from './PersonelYonetim';
 import AddComment from './AddComment';
+import ExpensesYonetim from './ExpensesPage';
 
 function handleClick() {
     console.log('İkon tıklandı!');
@@ -32,7 +33,7 @@ function USERDemo() {
     };
 
     return (
-        <div className="container-fluid mt-1  container-box" style={{ height: 700 }}>
+        <div className="container-fluid container-box" style={{ height: '100vh' }}>
             <div className="row align-items-center  user-menu" style={{ height: "8%" }}>
                 <div className="column border border-black " style={{ width: "13%", height: "100%" }}>
                     <h3 className="mt-2 text-center">simpleIK</h3>
@@ -53,6 +54,8 @@ function USERDemo() {
                     <div className='row' style={{ height: '55%' }}>
                         <a style={{ cursor: "pointer" }} onClick={() => openModal('personelYonetim')}>Personel Yönetim</a>
                         {openModals['personelYonetim'] && <PersonelYonetim id="personelYonetim" isModalOpen={openModals['personelYonetim']} closeModal={closeModal} />}
+                        <a style={{ cursor: "pointer" }} onClick={() => openModal('expensesYonetim')}>Harcama Yönetim</a>
+                        {openModals['expensesYonetim'] && <ExpensesYonetim id="expensesYonetim" isModalOpen={openModals['expensesYonetim']} closeModal={closeModal} />}
                     </div>
                     <div className='row' style={{ height: '15%' }}>
                         <div style={{ textAlign: 'left' }}>
