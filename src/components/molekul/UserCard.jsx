@@ -35,7 +35,7 @@ function UserCard() {
     }, []);
 
     return (
-        <div className='user-card mt-2'>
+        <div className='user-card mt-5'>
             <img className='image' src={user.avatarSrc} alt="User Avatar" />
             <div className='title'>
                 <p className='name'>{user.name}</p>
