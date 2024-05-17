@@ -1,11 +1,14 @@
 import CompanyCarts from "../components/organizma/CompanyCarts.tsx";
 import { useNavigate } from "react-router-dom";
 
-function Company() {
+function Company({ id, isModalOpen, closeModal }) {
   const navigate = useNavigate();
 
   return (
-    <div className="container">
+    <div className="personel-box">
+      <h3 onClick={() => closeModal(id)} id="modal-kapat">
+        x
+      </h3>
       <div
         className="row mt-1 align-content-center"
         style={{ height: "100px" }}

@@ -85,10 +85,7 @@ function App() {
           element={<UserInformationUpdate />}
         />
 
-        <Route
-          path="/shift-management"
-          element={<ShiftManagement token={token} />}
-        />
+        <Route path="/shift-management" element={<ShiftManagement />} />
       </Routes>
     </BrowserRouter>
   );

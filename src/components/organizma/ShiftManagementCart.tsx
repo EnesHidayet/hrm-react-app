@@ -14,7 +14,7 @@ import {
   fetchAssignBreak,
 } from "../../store/features/userSlice";
 
-function ShiftManagement({ token }: { token: string }) {
+function ShiftManagement() {
   const dispatch: AppDispatch = useDispatch();
 
   // Local state to manage shifts
@@ -23,7 +23,9 @@ function ShiftManagement({ token }: { token: string }) {
   const [shifts, setShifts] = useState<ShiftSaveRequestDto[]>([]);
   const [breaks, setBreaks] = useState<BreakSaveRequestDto[]>([]);
 
+
   useEffect(() => {
+    const token = sessionStorage.getItem("token");
     const fetchData = async (token: string) => {
       try {
         const action = await dispatch(
@@ -44,7 +46,7 @@ function ShiftManagement({ token }: { token: string }) {
       console.log("Token in useEffect:", token);
       fetchData(token);
     }
-  }, [dispatch, token]);
+  }, [dispatch]);
 
   // Selector for user list from Redux store
   const userList = useSelector((state: RootState) => state.user.userList);

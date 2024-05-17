@@ -2,10 +2,13 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import ShiftManagementCart from "../components/organizma/ShiftManagementCart";
 
-function ShiftManagement({ token }) {
+function ShiftManagement({ id, isModalOpen, closeModal }) {
   const navigate = useNavigate();
   return (
-    <div className="container">
+    <div className="personel-box">
+      <h3 onClick={() => closeModal(id)} id="modal-kapat">
+        x
+      </h3>
       <div
         className="row mt-1 align-content-center"
         style={{ height: "100px" }}
@@ -26,7 +29,7 @@ function ShiftManagement({ token }) {
         </div>
       </div>
       <div className="row m-3 vh-100">
-        <ShiftManagementCart token={token} />
+        <ShiftManagementCart />
       </div>
     </div>
   );
