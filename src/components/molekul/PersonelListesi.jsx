@@ -8,7 +8,7 @@ function PersonelListesi() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8081/hrm/user/find-all-users");
+        const response = await axios.get("http://localhost:8081/hrm/user/find-active-users");
         setPersonnelData(response.data); 
         console.log(response.data);
       } catch (error) {
@@ -19,42 +19,6 @@ function PersonelListesi() {
     fetchData();
   }, []);
 
-  const handleDelete = async (id) => {
-    const token = sessionStorage.getItem("token"); 
-    if (!token) {
-      console.error("Missing token for user deletion");
-      return;
-    }
-  
-    try {
-      const userToDelete = personnelData.find((person) => person.id === id);
-      console.log(userToDelete);
-      if (!userToDelete) {
-        console.error("User not found");
-        return;
-      }
-      
-      const requestData = {
-        authId: userToDelete.authId,
-        token: token
-      };
-      console.log(requestData);
-
-      const response = await axios.delete(
-        `http://localhost:8080/hrm/auth/soft-delete`, 
-        requestData
-      );
-  
-      if (response.status === 200) {
-        console.log("User status successfully deleted:", response.data);
-        setPersonnelData(personnelData.filter((person) => person.id !== id));
-      } else {
-        console.error("Error deleting user status:", response.data);
-      }
-    } catch (error) {
-      console.error("Error deleting user status:", error);
-    }
-  };
   
   return (
     <table className="personnel-table">
@@ -66,7 +30,6 @@ function PersonelListesi() {
           <th>Görevi</th>
           <th>Durum</th>
           <th>Düzenle</th>
-          <th>Sil</th>
         </tr>
       </thead>
       <tbody>
@@ -85,14 +48,7 @@ function PersonelListesi() {
                 Düzenle
               </Link>
             </td>
-            <td>
-              <button
-                className="btn"
-                onClick={() => handleDelete(person.id)}
-              >
-                Sil
-              </button>
-            </td>
+            
           </tr>
         ))}
       </tbody>
