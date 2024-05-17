@@ -15,7 +15,10 @@ export default function PermissionPage() {
 
     const fullName = firstName + lastName;
 
-    const id = axios.get('http://localhost:8081/findByFullName/' + {fullName})
+    axios.get('http://localhost:8081/hrm/user/find-by-full-name-updated' + '?' + 'fullName=' + fullName).then((response) => {
+      setId(response.data);
+    })
+    
     if (Number(id)) {
       setId(id);
     } 
@@ -25,7 +28,7 @@ export default function PermissionPage() {
   }
   
   
-  
+  console.log("idd:", id);
 
   return (
     <div className="container border">

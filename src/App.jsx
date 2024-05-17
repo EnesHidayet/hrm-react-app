@@ -16,6 +16,8 @@ import AddNewEmployee from './pages/AddNewEmployee';
 import DefinePermission from './pages/DefinePermission';
 import ForgotPassword from './pages/ForgotPassword';
 import UpdatePassword from './pages/UpdatePassword';
+import Equipment from './pages/Equipment';
+import PermissionPage from './pages/PermissionPage';
 
 function App() {
   const [token, setToken] = useState(""); // Use state to manage token
@@ -49,13 +51,15 @@ function App() {
         <Route path='/add-comment' element={<ProtectedRoute element={AddComment} />} />
         <Route path='/personel-yonetim' element={<PersonelYonetim />} />
         <Route path='/add-new-employee' element={<AddNewEmployee />} />
-        <Route path='define-permission' element={<DefinePermission />} />
-        <Route path="/accept-permissions" element={<AcceptPermissions />} />
+        <Route path='/user-Demo/define-permission' element={<DefinePermission />} />
+        <Route path="/user-Demo/accept-permissions" element={<AcceptPermissions />} />
         <Route path="/company" element={<Company />} />
         <Route path="/edit-employee/:employeeId" element={<EditEmployee />} />
         <Route path='/active' element={<AktifPersonelListesi />} />
         <Route path='/inactive' element={<InaktifPersonelListesi />} />
         <Route path='/user-information-update' element={< UserInformationUpdate/>} />
+        <Route path= '/user-Demo/equipment' element={<Equipment />} />
+        <Route path='/permission' element={<PermissionPage />} />
 
 
 
